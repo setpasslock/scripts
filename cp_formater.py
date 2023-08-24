@@ -19,7 +19,7 @@ def process_and_copy():
 
     pyperclip.copy(processed_text)  # copy to clipboard
 
-    print("Metin işlendi ve sonuç panoa kopyalandı:")
+    print("The text was edited and the result was copied to the clipboard:")
     print(processed_text)
 
 # trigger
