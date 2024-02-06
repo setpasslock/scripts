@@ -21,3 +21,5 @@ def main():
             print(email)
     else:
         pass
+
+main()
