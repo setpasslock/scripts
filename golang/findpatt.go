@@ -22,11 +22,11 @@ func printIPPatterns(text string) {
 func main() {
 	fileFlag := flag.String("f", "", "File path")
 	dirFlag := flag.String("d", "", "Directory path")
-	ipFlag := flag.Bool("ip", false, "Display IP address")
+	ipFlag := flag.String("p", "", "Pattern: ip,")
 
 	flag.Parse()
 
-	if *fileFlag != "" && *ipFlag {
+	if *fileFlag != "" && *ipFlag == "ip" {
 		filePath := *fileFlag
 		content, err := os.ReadFile(filePath)
 		if err != nil {
@@ -37,7 +37,7 @@ func main() {
 		printIPPatterns(string(content))
 	}
 
-	if *dirFlag != "" && *ipFlag {
+	if *dirFlag != "" && *ipFlag == "ip" {
 		dirPath := *dirFlag
 
 		files, err := os.ReadDir(dirPath)
