@@ -47,8 +47,10 @@ def main():
     req = requests.get(URL,headers=headers)
     json_response = req.text
     
-    with open(f"{file_name}-output.json", "w") as file:
-        file.write(json_response)
+    print(json_response)
+    
+    # with open(f"{file_name}-output.json", "w") as file:
+    #     file.write(json_response)
         
     
     
