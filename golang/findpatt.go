@@ -14,7 +14,18 @@ import (
 const IPRegex = `(\d{1,3}\.){3}\d{1,3}`
 
 // unstable
-const domainRegex = `^(https?://)?([a-zA-Z0-9\-_]+\.)+[a-zA-Z]{2,}(:\d+)?(/.*)?`
+const domainRegex = `^(https?:\/\/)?([a-zA-Z0-9-]+\.)*[a-zA-Z0-9-]+\.[a-zA-Z]{2,}(:\d+)?(\/.*)?`
+
+const emailRegex = `[\w0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+`
+
+func printEmailPatterns(text string, filePath string) {
+	re := regexp.MustCompile(emailRegex)
+	emailPatterns := re.FindAllString(text, -1)
+
+	for _, email := range emailPatterns {
+		fmt.Println(email, "<--", filePath)
+	}
+}
 
 func printIPPatterns(text string, filePath string) {
 	re := regexp.MustCompile(IPRegex)
@@ -83,6 +94,8 @@ func processDirectory(dirPath string, patternFlag string) error {
 					// fmt.Printf("Domain patterns in file %s:\n", file.Name())
 					go printDomainPatterns(string(content), file.Name())
 					fmt.Println()
+				} else if patternFlag == "email" {
+					go printEmailPatterns(string(content), file.Name())
 				}
 			}
 		}
@@ -93,7 +106,7 @@ func processDirectory(dirPath string, patternFlag string) error {
 func main() {
 	fileFlag := flag.String("f", "", "File path")
 	dirFlag := flag.String("d", "", "Directory path")
-	patternFlag := flag.String("p", "", "Pattern: ip,")
+	patternFlag := flag.String("p", "", "Pattern: ip, domain, email")
 	file_name := ""
 
 	flag.Parse()
@@ -111,6 +124,8 @@ func main() {
 			printIPPatterns(string(content), file_name)
 		} else if *patternFlag == "domain" {
 			printDomainPatterns(string(content), file_name)
+		} else if *patternFlag == "email" {
+			printEmailPatterns(string(content), file_name)
 		}
 
 	}
