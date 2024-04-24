@@ -4,7 +4,6 @@ import json
 
 arg_parser = argparse.ArgumentParser(description="Whois Full Text Searcher")
 arg_parser.add_argument("-t", "--text",required=True, help="Search Text")
-arg_parser.add_argument("-t", "--text",required=True, help="Search Text")
 
 
 args = vars(arg_parser.parse_args())
@@ -46,6 +45,8 @@ def main():
     URL = API_PATH+q_for
     req = requests.get(URL,headers=headers)
     json_response = req.text
+    if len(json_response) == 0:
+        print('"no":"response"')
     
     print(json_response)
     
