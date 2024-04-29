@@ -18,7 +18,7 @@ def check_anonymous_login(hostname, timeout=5):
     except (ftplib.error_perm, socket.timeout):
         return False  #  Anonymous login failed or timeout
     except Exception as e:
-        print(f"Hata oluştu: {e}")
+        print(f"An error occured during check: {e}")
         return False
 
 def main(hosts):
