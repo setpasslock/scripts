@@ -26,7 +26,7 @@ def main(hosts):
         with open(hosts, 'r') as file:
             hosts = file.readlines()
             for host in hosts:
-                host = host.strip()  # Boşlukları temizle
+                host = host.strip()
                 if check_anonymous_login(host):
                     print(f"{host}: Anonymous login successful")
                 else:
