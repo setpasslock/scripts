@@ -66,7 +66,7 @@ def read_domains_from_file(file_path):
             domains.append(domain)
     return domains
 
-def send_rdns_queries(domains, dns_servers, use_table=False):
+def send_dns_queries(domains, dns_servers, use_table=False):
     table = PrettyTable(["Domain", "DNS Server", "Result", "Cloudflare"])
     for domain in domains:
         for dns_server in dns_servers:
@@ -136,7 +136,7 @@ def send_rdns_queries(domains, dns_servers, use_table=False):
         print(table)
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description="Send rDNS queries to domains using specified DNS servers.")
+    parser = argparse.ArgumentParser(description="Send DNS queries to domains using specified DNS servers.")
     parser.add_argument("file", help="Path to the file containing subdomains/domains.")
     parser.add_argument("--table", action="store_true", help="Display results in a table format.")
     args = parser.parse_args()
@@ -145,7 +145,7 @@ if __name__ == "__main__":
     domains_list = read_domains_from_file(args.file)
     
     if domains_list:
-        send_rdns_queries(domains_list, dns_servers_list, use_table=args.table)
+        send_dns_queries(domains_list, dns_servers_list, use_table=args.table)
         print("========================================================")
         print_dict(dictionary=last_dict)
     else:
