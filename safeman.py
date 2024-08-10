@@ -1,3 +1,5 @@
+# A pacman script to make safer updates against newly released but potentially corrupted updates.
+
 import subprocess
 from datetime import datetime
 from rich.table import Table
