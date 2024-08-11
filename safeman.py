@@ -85,7 +85,7 @@ def print_table():
     table.add_column("Repository", style="red")
     table.add_column("Package", style="green")
     table.add_column("Version", style="yellow")
-    table.add_column("Date", style="cyan")
+    table.add_column("Build Date", style="cyan")
     table.add_column("Days Ago")
 
     for idx, item in enumerate(sorted_list, start=1):
