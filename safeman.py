@@ -18,7 +18,7 @@ pack_list = []
 console = Console()
 cmd = """pacman -Qu | cut -d ' ' -f 1 | xargs pacman -Si | awk \
         '/^Repository/ {repo=$0} /^Name/ {name=$0} /^Version/ {version=$0} /^Build Date/ {printf "%s | %s | %s | %s\\n", repo, name, version, $0}' | sort -u"""
-output = subprocess.check_output(cmd, shell=True).decode('utf-8')
+
 
 
 def clean_line(line):
@@ -27,7 +27,6 @@ def clean_line(line):
     return cleaned_line
 
 
-cleaned_lines = [clean_line(line) for line in output.strip().split("\n")]
 
 
 def parse_lines(cleaned_lines):
@@ -62,7 +61,6 @@ def parse_lines(cleaned_lines):
         
 
 
-parse_lines(cleaned_lines=cleaned_lines)
 
 date_format = "%a %d %b %Y %I:%M:%S %p %z"
 
@@ -146,6 +144,11 @@ def main():
     else:
         noSync = False
         os.system("yes no | sudo pacman -Syu")
+
+        output = subprocess.check_output(cmd, shell=True).decode('utf-8')
+        cleaned_lines = [clean_line(line) for line in output.strip().split("\n")]
+        parse_lines(cleaned_lines=cleaned_lines)
+
 
     sorted_list = print_table()
 
